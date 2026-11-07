@@ -73,17 +73,22 @@ Unknown keys are refused, so a misspelt setting is an error rather than
 silently ignored.
 
 ```sh
-revocation-exporter -config revocation-exporter.yaml          # serve :9793/metrics
+revocation-exporter -config revocation-exporter.yaml          # serve :10062/metrics
 revocation-exporter -config revocation-exporter.yaml -once    # one check, print metrics
 ```
 
 `/healthz` answers 200 once the first check has finished.
 
+The default port, 10062, is outside the range already taken on Prometheus's
+[default port allocations](https://github.com/prometheus/prometheus/wiki/Default-port-allocations)
+page (every port from 9790 to 9999 is listed there, 9793 by enix); it is not
+registered yet. Register one before publishing.
+
 ## Running it
 
 ```sh
 podman build -t revocation-exporter .
-podman run -d -p 9793:9793 -v ./conf:/etc/revocation-exporter:ro revocation-exporter
+podman run -d -p 10062:10062 -v ./conf:/etc/revocation-exporter:ro revocation-exporter
 ```
 
 The image is distroless and static, and runs as nonroot.

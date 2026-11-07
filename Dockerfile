@@ -11,6 +11,6 @@ RUN CGO_ENABLED=0 go build -trimpath -buildvcs=false \
 FROM gcr.io/distroless/static-debian12:nonroot
 COPY --from=build /revocation-exporter /revocation-exporter
 USER nonroot
-EXPOSE 9793
+EXPOSE 10062
 ENTRYPOINT ["/revocation-exporter"]
 CMD ["-config", "/etc/revocation-exporter/config.yaml"]
