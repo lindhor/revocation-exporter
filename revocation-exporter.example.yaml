@@ -1,0 +1,28 @@
+# revocation-exporter — example configuration.
+#
+# Every check runs on this interval and the results are cached: a Prometheus
+# scrape never triggers a download.
+interval: 5m
+timeout: 15s
+# max_crl_bytes: 67108864   # 64 MiB; a larger CRL is refused, not truncated
+
+# CRLs to watch directly: an http(s) URL or a file (PEM or DER).
+# `issuer` (optional) is the CRL issuer's certificate; with it the CRL's
+# signature is verified (revocation_crl_signature_valid).
+crls:
+  - url: http://crl.example.com/root-ca.crl
+    issuer: /etc/pki/root-ca.pem
+  - file: /etc/strongswan/ipsec.d/crls/intermediate.crl
+
+# Certificates to check for revocation. A file holds the leaf first and then
+# its issuer; a TLS source is a host:port whose presented chain is used (and
+# whose stapled OCSP response is reported). For each, the exporter follows
+# the CRL Distribution Points and the OCSP responders in the certificate.
+certificates:
+  - file: /etc/strongswan/ipsec.d/certs/gateway-chain.pem
+  - tls: vpn.example.com:443
+  - tls: 10.0.0.5:636
+    server_name: ldap.example.com
+
+# follow_crl_distribution_points: true   # default
+# check_ocsp: true                        # default
