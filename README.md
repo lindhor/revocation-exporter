@@ -119,3 +119,7 @@ cRLNumber and the nextUpdate.
   different issuer than the certificate's is never used to call it revoked.
 - A TLS source's chain is read without trusting it. The exporter inspects
   chains; it does not validate them for use.
+
+## License
+
+Apache License 2.0 — see [LICENSE](LICENSE).
