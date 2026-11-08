@@ -29,7 +29,7 @@ var version = "dev"
 
 func main() {
 	cfgPath := flag.String("config", "revocation-exporter.yaml", "configuration file")
-	listen := flag.String("listen", ":10062", "address to serve /metrics on (not a registered allocation yet)")
+	listen := flag.String("listen", ":10999", "address to serve /metrics on (registered: Prometheus default port allocations)")
 	once := flag.Bool("once", false, "run one check, print the metrics to stdout and exit")
 	showVersion := flag.Bool("version", false, "print the version and exit")
 	flag.Parse()
